@@ -3,14 +3,19 @@ require 'mixlib/shellout'
 # helper methods for common case statements
 module Osquery
   def os_version
-    node['platform_version'].to_i
+    case node['platform']
+    when 'amazon'
+      '7'.to_i
+    else
+      node['platform_version'].to_i
+    end
   end
 
   def osquery_daemon
     case node['platform']
     when 'mac_os_x'
       'com.facebook.osqueryd'
-    when 'centos', 'ubuntu', 'redhat'
+    when 'centos', 'ubuntu', 'redhat', 'amazon'
       'osqueryd'
     end
   end
@@ -23,7 +28,7 @@ module Osquery
     case node['platform']
     when 'mac_os_x'
       '/var/osquery/osquery.conf'
-    when 'centos', 'ubuntu', 'redhat'
+    when 'centos', 'ubuntu', 'redhat', 'amazon'
       '/etc/osquery/osquery.conf'
     end
   end
@@ -32,7 +37,7 @@ module Osquery
     case node['platform']
     when 'mac_os_x'
       '/var/osquery/packs'
-    when 'centos', 'ubuntu', 'redhat'
+    when 'centos', 'ubuntu', 'redhat', 'amazon'
       '/usr/share/osquery/packs'
     end
   end
@@ -41,7 +46,7 @@ module Osquery
     case node['platform']
     when 'mac_os_x'
       'wheel'
-    when 'centos', 'ubuntu', 'redhat'
+    when 'centos', 'ubuntu', 'redhat', 'amazon'
       'root'
     end
   end

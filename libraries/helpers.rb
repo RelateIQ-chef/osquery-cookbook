@@ -5,7 +5,7 @@ module Osquery
   def os_version
     case node['platform']
     when 'amazon'
-      '7'.to_i
+      '7'.to_i # force centos7 url for amazon installation
     else
       node['platform_version'].to_i
     end

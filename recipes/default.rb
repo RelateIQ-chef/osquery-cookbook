@@ -17,8 +17,6 @@ end
 case node['platform']
 when 'redhat'
   include_recipe 'osquery::centos'
-when 'amazon'
-  include_recipe 'osquery::centos'
 else
   include_recipe "osquery::#{node['platform']}"
 end

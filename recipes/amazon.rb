@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 #
 # Cookbook Name:: osquery
-# Recipe:: Amazon
+# Recipe:: amazon
 #
 #
 
 osquery_install node['osquery']['version'] do
-  action  :install_centos
+  action  :install_amazon
   upgrade node['osquery']['repo']['package_upgrade']
 end
 
@@ -29,5 +31,5 @@ osquery_conf osquery_config_path do
 end
 
 service osquery_daemon do
-  action [:enable, :start]
+  action %i[enable start]
 end

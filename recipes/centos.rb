@@ -1,9 +1,13 @@
+# frozen_string_literal: true
+
 #
 # Cookbook Name:: osquery
 # Recipe:: centos
 #
 # Copyright 2016, Jack Naglieri
 #
+
+return if os_version.eql?(5)
 
 osquery_install node['osquery']['version'] do
   # TODO: - combine centos/ubuntu into linux and write a
@@ -32,6 +36,6 @@ osquery_conf osquery_config_path do
 end
 
 service osquery_daemon do
-  action [:enable, :start]
-  provider Chef::Provider::Service::Systemd if os_version.eql?(7) and node['platform'] == 'centos'
+  action %i[enable start]
+  provider Chef::Provider::Service::Systemd if os_version.eql?(7)
 end

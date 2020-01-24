@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'mixlib/shellout'
 
 # helper methods for common case statements
@@ -21,7 +23,7 @@ module Osquery
   end
 
   def osquery_s3
-    'https://osquery-packages.s3.amazonaws.com'
+    'https://pkg.osquery.io'
   end
 
   def osquery_config_path
@@ -56,6 +58,6 @@ module Osquery
   end
 end
 
-Chef::Recipe.send(:include, Osquery)
-Chef::Resource.send(:include, Osquery)
-Chef::Provider.send(:include, Osquery)
+Chef::Recipe.include Osquery
+Chef::Resource.include Osquery
+Chef::Provider.include Osquery

@@ -47,6 +47,11 @@ action :install_centos do
 end
 
 action :install_amazon do
+  # looks like since 4.1.1, the release version no longer carry '.linux' after '-1'
+  # below is ugly hack, but not looking for something pretty
+  if "#{new_resource.version}" > '4.0.2'
+    PACKAGE_SUFFIX = '-1'
+  end
   package_version = "#{new_resource.version}#{PACKAGE_SUFFIX}"
   package_action = new_resource.upgrade ? :upgrade : :install
 
